@@ -1,0 +1,28 @@
+{
+    "name": "linsunnyday\/weather",
+    "description": "A weather SDK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "linsunnyday",
+            "email": "linsunnyday@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "phpunit/phpunit": "^8.3",
+        "mockery/mockery": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Linsunnyday\\Weather\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Linsunnyday\\Weather\\ServiceProvider"
+            ]
+        }
+    }
+}
