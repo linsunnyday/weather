@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class WeatherTest extends TestCase
 {
-	 // 检查 $type 参数
+	// 检查 $type 参数
     public function testGetWeatherWithInvalidType()
     {
         $w = new Weather('mock-key');
@@ -35,16 +35,16 @@ class WeatherTest extends TestCase
         $w = new Weather('mock-key');
 
         // 断言会抛出此异常类
-        $this->expectException(InvalidArgumentException::class);  
+        $this->expectException(InvalidArgumentException::class); 
 
         // 断言异常消息为 'Invalid response format: array'
         $this->expectExceptionMessage('Invalid response format: array'); 
 
         // 因为支持的格式为 xml/json，所以传入 array 会抛出异常
-        $w->getWeather('深圳', 'base', 'array'); 
+        $w->getWeather('深圳', 'base', 'array');
 
         // 如果没有抛出异常，就会运行到这行，标记当前测试没成功
-        $this->fail('Failed to assert getWeather throw exception with invalid argument.');   
+        $this->fail('Failed to assert getWeather throw exception with invalid argument.'); 
     }
 
     // 依赖模拟
@@ -65,7 +65,7 @@ class WeatherTest extends TestCase
                 'output' => 'json',
                 'extensions' => 'base',
             ],
-        ])->andReturn($response);  
+        ])->andReturn($response);
 
         // 将 `getHttpClient` 方法替换为上面创建的 http client 为返回值的模拟方法。
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
@@ -113,7 +113,7 @@ class WeatherTest extends TestCase
     // 测试 HTTP 客户端，用于返回 guzzle 实例
     public function testGetHttpClient()
     {
-    	$w = new Weather('mock-key');
+    	 $w = new Weather('mock-key');
 
         // 断言返回结果为 GuzzleHttp\ClientInterface 实例
         $this->assertInstanceOf(ClientInterface::class, $w->getHttpClient());
@@ -122,7 +122,7 @@ class WeatherTest extends TestCase
     // 测试自定义 guzzle 实例的参数
     public function testSetGuzzleOptions()
     {
-    	$w = new Weather('mock-key');
+    	 $w = new Weather('mock-key');
 
         // 设置参数前，timeout 为 null
         $this->assertNull($w->getHttpClient()->getConfig('timeout'));
@@ -133,7 +133,7 @@ class WeatherTest extends TestCase
         // 设置参数后，timeout 为 5000
         $this->assertSame(5000, $w->getHttpClient()->getConfig('timeout'));
     }
-
+    
     // 测试获取实时天气
     public function testGetLiveWeather()
     {
@@ -144,7 +144,7 @@ class WeatherTest extends TestCase
         // 断言正确传参并返回
         $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
     }
-    
+
     // 测试获取天气预报
     public function testGetForecastsWeather()
     {
@@ -155,4 +155,5 @@ class WeatherTest extends TestCase
         // 断言正确传参并返回
         $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
     }
+
 }

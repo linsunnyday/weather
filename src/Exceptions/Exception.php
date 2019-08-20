@@ -7,5 +7,4 @@ namespace Linsunnyday\Weather\Exceptions;
  */
 class Exception extends \Exception
 {
-
 }
