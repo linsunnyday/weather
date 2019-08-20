@@ -107,7 +107,7 @@ class WeatherTest extends TestCase
 
         $w->getWeather('深圳');
     }
-    
+    // 测试 HTTP 客户端，用于返回 guzzle 实例 
     public function testGetHttpClient()
     {
     	$w = new Weather('mock-key');
@@ -115,7 +115,7 @@ class WeatherTest extends TestCase
         // 断言返回结果为 GuzzleHttp\ClientInterface 实例
         $this->assertInstanceOf(ClientInterface::class, $w->getHttpClient());
     }
-
+    // 测试自定义 guzzle 实例的参数
     public function testSetGuzzleOptions()
     {
     	$w = new Weather('mock-key');
@@ -128,5 +128,25 @@ class WeatherTest extends TestCase
 
         // 设置参数后，timeout 为 5000
         $this->assertSame(5000, $w->getHttpClient()->getConfig('timeout'));
+    }
+    // 测试获取实时天气
+    public function testGetLiveWeather()
+    {
+        // 将 getWeather 接口模拟为返回固定内容，以测试参数传递是否正确
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('深圳', 'base', 'json')->andReturn(['success' => true]);
+
+        // 断言正确传参并返回
+        $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
+    }
+    // 测试获取天气预报
+    public function testGetForecastsWeather()
+    {
+        // 将 getWeather 接口模拟为返回固定内容，以测试参数传递是否正确
+        $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
+        $w->expects()->getWeather('深圳', 'all', 'json')->andReturn(['success' => true]);
+
+        // 断言正确传参并返回
+        $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
     }
 }

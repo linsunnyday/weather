@@ -14,7 +14,7 @@ class Weather
 	 * $key 为高德开放平台创建的应用 API Key；
 	 */
 	// 构造函数 调用天气 API 需要用到 API Key
-    public function __construct(string $key)
+    public function __construct($key)
     {
         $this->key = $key;
     }
@@ -35,7 +35,7 @@ class Weather
      * @param  string $format [输出的数据格式，默认为 json 格式，当 output 设置为 “xml” 时，输出的为 XML 格式的数据。]
      * @return [type]         [按地名查询实时天气，获取最近的天气预报。]
      */
-    public function getWeather($city, string $type = 'base', string $format = 'json')
+    public function getWeather($city, $type = 'base', $format = 'json')
     {
         $url = 'https://restapi.amap.com/v3/weather/weatherInfo';
 
@@ -70,5 +70,25 @@ class Weather
             // 并将调用异常作为 $previousException 传入。
             throw new HttpException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+    /**
+     * [getLiveWeather 获取实时天气]
+     * @param  [type] $city   [城市名]
+     * @param  string $format [输出的数据格式]
+     * @return [type]         [按地名查询实时天气]
+     */
+    public function getLiveWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'base', $format);
+    }
+    /**
+     * [getForecastsWeather 获取天气预报]
+     * @param  [type] $city   [城市名]
+     * @param  string $format [输出的数据格式]
+     * @return [type]         [按地名获取最近的天气预报]
+     */
+    public function getForecastsWeather($city, $format = 'json')
+    {
+        return $this->getWeather($city, 'all', $format);
     }
 }

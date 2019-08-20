@@ -23,7 +23,7 @@ $weather = new Weather($key);
 
 ## Getting Real-Time Weather
 
-$response = $weather->getWeather('深圳');
+$response = $weather->getWeather('深圳'); perhaps, $response = $weather->getLiveWeather('深圳');
 
 Example：
 
@@ -48,6 +48,8 @@ Example：
 }
 
 ## Obtaining the Recent Weather Forecast
+
+$response = $weather->getWeather('深圳', 'all'); perhaps, $response = $weather->getForecastsWeather('深圳');
 
 Example：
 
@@ -167,14 +169,14 @@ WEATHER_API_KEY=xxxxxxxxxxxxxxxxxxxxx
 
 Linsunnyday\Weather\Weather instances can be obtained in two ways:
 
-# Method parameter injection
+### Method parameter injection
 
 	public function edit(Weather $weather) 
     {
         $response = $weather->getWeather('深圳');
     }
 
-# Service name access
+### Service name access
 
 	public function edit() 
     {
