@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class WeatherTest extends TestCase
 {
-	// 检查 $type 参数
+	 // 检查 $type 参数
     public function testGetWeatherWithInvalidType()
     {
         $w = new Weather('mock-key');
@@ -46,6 +46,7 @@ class WeatherTest extends TestCase
         // 如果没有抛出异常，就会运行到这行，标记当前测试没成功
         $this->fail('Failed to assert getWeather throw exception with invalid argument.');   
     }
+
     // 依赖模拟
     public function testGetWeather()
     {
@@ -63,7 +64,7 @@ class WeatherTest extends TestCase
                 'city' => '深圳',
                 'output' => 'json',
                 'extensions' => 'base',
-            ]
+            ],
         ])->andReturn($response);  
 
         // 将 `getHttpClient` 方法替换为上面创建的 http client 为返回值的模拟方法。
@@ -90,6 +91,7 @@ class WeatherTest extends TestCase
 
         $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'all', 'xml'));
     }
+
     // 请求异常
     public function testGetWeatherWithGuzzleRuntimeException()
     {
@@ -107,7 +109,8 @@ class WeatherTest extends TestCase
 
         $w->getWeather('深圳');
     }
-    // 测试 HTTP 客户端，用于返回 guzzle 实例 
+
+    // 测试 HTTP 客户端，用于返回 guzzle 实例
     public function testGetHttpClient()
     {
     	$w = new Weather('mock-key');
@@ -115,6 +118,7 @@ class WeatherTest extends TestCase
         // 断言返回结果为 GuzzleHttp\ClientInterface 实例
         $this->assertInstanceOf(ClientInterface::class, $w->getHttpClient());
     }
+
     // 测试自定义 guzzle 实例的参数
     public function testSetGuzzleOptions()
     {
@@ -129,6 +133,7 @@ class WeatherTest extends TestCase
         // 设置参数后，timeout 为 5000
         $this->assertSame(5000, $w->getHttpClient()->getConfig('timeout'));
     }
+
     // 测试获取实时天气
     public function testGetLiveWeather()
     {
@@ -139,6 +144,7 @@ class WeatherTest extends TestCase
         // 断言正确传参并返回
         $this->assertSame(['success' => true], $w->getLiveWeather('深圳'));
     }
+    
     // 测试获取天气预报
     public function testGetForecastsWeather()
     {
