@@ -35,9 +35,8 @@ class Weather
      * @param  string $format [输出的数据格式，默认为 json 格式，当 output 设置为 “xml” 时，输出的为 XML 格式的数据。]
      * @return [type]         [按地名查询实时天气，获取最近的天气预报。]
      */
-    public function getWeather($city, $type = 'base', $format = 'json')
-    {
-        $url = 'https://restapi.amap.com/v3/weather/weatherInfo';
+    public function getWeather($city,$type = 'base',$format = 'json')
+    {$url = 'https://restapi.amap.com/v3/weather/weatherInfo';
 
         // 1. 对 `$format` 与 `$type` 参数进行检查，不在范围内的抛出异常。
         if (!\in_array(\strtolower($format), ['xml', 'json'])) {
